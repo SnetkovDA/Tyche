@@ -3,13 +3,40 @@
 <head>
     <meta charset="utf-8" />
     <title>Tyche Manager</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="css/reset.css"/>
     <link rel="stylesheet" href="css/style.css"/>
+    <script src="src/request.js"></script>
     <script src="src/script.js"></script>
 </head>
 <body>
-    <p>Welcome to the Tyche file and scan manager.</p>
     <div id="rootElement">
-
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-header-name"><span>Scanners</span></div>
+                <div class="sidebar-header-action"><button onclick="addScanner()">Add...</button></div>
+            </div>
+            <div class="sidebar-content"><ul id="scanners-list">
+                <li><button>
+                    <p class="scanner-name">Scanner name</p>
+                    <p class="scanner-host">192.168.11.11</p>
+                    <p class="scanner-status" style="color: greenyellow;">Active</p>
+                </button></li>
+            </ul></div>
+        </div>
+        <div class="content">
+            <div class="content-header">
+                <div class="content-header-name">
+                    <span id="current-scanner-name"></span>
+                    <span id="current-scanner-host"></span>
+                </div>
+                <div class="content-header-actions"><ul>
+                    <li><button class="delete">Delete</button></li>
+                    <li><button class="scanner-rename">Rename</button></li>
+                    <li><button class="scanner-scan">Scan</button></li>
+                </ul></div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

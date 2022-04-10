@@ -14,7 +14,7 @@ namespace Tyche.Manager.Data
         public Scanner GetScanner(string id);
         public void DeleteScanner(string id);
 
-        public void AddOrUpdateScanSettings(string scannerId, ScanSettings scanSettings);
+        public string AddOrUpdateScanSettings(string scannerId, ScanSettings scanSettings);
         public ScanSettings GetScanSettings(string scannerId);
 
         public void AddTaskIdForScanner(string scannerId, string taskId);

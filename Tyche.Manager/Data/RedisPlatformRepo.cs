@@ -52,10 +52,12 @@ namespace Tyche.Manager.Data
             db.SetRemove(ScannersSetName, id);
         }
 
-        public void AddOrUpdateScanSettings(string scannerId, ScanSettings scanSettings)
+        public string AddOrUpdateScanSettings(string scannerId, ScanSettings scanSettings)
         {
             var db = _redis.GetDatabase();
-            db.StringSet(ScanSettingsPrefix + scannerId, JsonSerializer.Serialize(scanSettings));
+            var scanSettingsId = ScanSettingsPrefix + scannerId;
+            db.StringSet(scanSettingsId, JsonSerializer.Serialize(scanSettings));
+            return scanSettingsId;
         }
 
         public ScanSettings GetScanSettings(string scannerId)

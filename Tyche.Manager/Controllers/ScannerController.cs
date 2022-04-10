@@ -11,7 +11,7 @@ using Tyche.Shared.Models;
 namespace Tyche.Manager.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     public class ScannerController : Controller
     {
         readonly IFileRepository _fileRepository;
@@ -21,59 +21,53 @@ namespace Tyche.Manager.Controllers
             _fileRepository = fileRepository;
         }
 
-        [HttpGet]
+        [HttpGet("AllScanners")]
         public IActionResult AllScanners()
         {
             IEnumerable<string> ids = _fileRepository.GetAllScannersIds();
             return new JsonResult(ids.Select(id => _fileRepository.GetScanner(id)));
         }
 
-        [HttpGet]
-        [Route("Get/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetScanner(string id)
         {
             return new JsonResult(_fileRepository.GetScanner(id));
         }
 
-        [HttpPut]
-        [Route("Add")]
+        [HttpPut("Add")]
         public IActionResult AddScanner([FromBody] Scanner scanner)
         {
-            _fileRepository.AddOrUpdateScanner(scanner);
-            _fileRepository.AddOrUpdateScanSettings(scanner.Id, new ScanSettings 
+            scanner.SettingsId = _fileRepository.AddOrUpdateScanSettings(scanner.Id, new ScanSettings 
             {
                 ScannerId = scanner.Id,
                 IncludeSubfolders = true,
                 UsePreviousScanDate = false
             });
+            _fileRepository.AddOrUpdateScanner(scanner);
             return Ok(new { id = scanner.Id });
         }
 
-        [HttpPost]
-        [Route("Update")]
+        [HttpPost("Update")]
         public IActionResult UpdateScanner([FromBody] Scanner scanner)
         {
             _fileRepository.AddOrUpdateScanner(scanner);
             return Ok(new { id = scanner.Id });
         }
 
-        [HttpDelete]
-        [Route("Delete/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteScanner(string id)
         {
             _fileRepository.DeleteScanner(id);
             return NoContent();
         }
 
-        [HttpGet]
-        [Route("ScanSettings/{id}")]
+        [HttpGet("ScanSettings/{id}")]
         public IActionResult GetScanSettings(string id)
         {
             return new JsonResult(_fileRepository.GetScanSettings(id));
         }
 
-        [HttpPost]
-        [Route("ScanSettings")]
+        [HttpPost("ScanSettings")]
         public IActionResult UpdateScanSettings([FromBody] ScanSettings scanSettings)
         {
             _fileRepository.AddOrUpdateScanSettings(scanSettings.ScannerId, scanSettings);
@@ -91,9 +85,9 @@ namespace Tyche.Manager.Controllers
                 HttpResponseMessage response = httpClient.Send(new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri($"{scanner.Host}/Status")
+                    RequestUri = new Uri($"{scanner.Host}/Scan/Status")
                 });
-                return Ok(new { status = response.IsSuccessStatusCode ? "Active" : "Error", error = response.Content });
+                return Ok(new { status = response.IsSuccessStatusCode ? "Active" : "Error", error = response.Content.ReadAsStringAsync().GetAwaiter().GetResult() });
             }
             catch (Exception e)
             {
@@ -112,9 +106,9 @@ namespace Tyche.Manager.Controllers
                 HttpResponseMessage response = httpClient.Send(new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri($"{scanner.Host}/Settings")
+                    RequestUri = new Uri($"{scanner.Host}/Scan/Settings")
                 });
-                return Ok(response.Content);
+                return Ok(new {settings = response.Content.ReadAsStringAsync().GetAwaiter().GetResult() });
             }
             catch (Exception e)
             {

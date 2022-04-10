@@ -1,3 +1,223 @@
-﻿body {
-    font-size: 20px;
+﻿
+html {
+    font-family: Arial;
+    font-size: 16px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.sidebar {
+    position: fixed;
+    width: 25%;
+    height: 100vh;
+    border-right: 2px solid #312450;
+    background-color: #d0d4e7;
+}
+
+.sidebar-header {
+    height: 64px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background: #312450;
+    border-bottom: 1px solid black;
+}
+
+.content-header {
+    height: 64px;
+    min-height: 64px;
+    padding: 0 10px;
+    display: flex;
+    background: #312450;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+}
+
+.content-header-name {
+    line-height: 60px;
+    padding: 0 10px;
+    display: block;
+    width: 70%;
+    border-right: 2px solid black;
+}
+
+.content-header-name span {
+    float: left;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #d3d6e9;
+}
+
+.content-header-actions {
+    display: block;
+    line-height: 62px;
+    width: 30%;
+}
+
+.content-header-actions li {
+    float: right;
+    margin-left: 1%;
+    width: 30%;
+}
+
+button.delete {
+    background-color: rgb(255, 172, 172);
+    border: 1px solid red;
+    border-radius: 2px;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}
+
+button.delete:hover {
+    background-color: red;
+    color: white;
+}
+
+button.delete:active {
+    color: black;
+    border-color: black;
+}
+
+button.scanner-scan {
+    background-color: rgb(198, 255, 198);
+    border: 1px solid green;
+    border-radius: 2px;
+    text-align: center;
+    color: green;
+    font-weight: bold;
+}
+
+button.scanner-scan:hover {
+    background-color: green;
+    color: rgb(198, 255, 198);
+}
+
+button.scanner-scan:active {
+    color: black;
+    border-color: black;
+}
+
+button.scanner-rename {
+    text-align: center;
+    background-color: #d3d6e9;
+    color: #312450;
+    border: 1px solid #1d0061;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+button.scanner-rename:hover {
+    background-color: #1d0061;
+    color: #d3d6e9;
+}
+
+button.scanner-rename:active {
+    color: rgb(70, 70, 70);
+    border-color: black;
+}
+
+#current-scanner-host {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 1.4em;
+    position: relative;
+    float: right;
+}
+
+.sidebar-header-name {
+    display: block;
+    width: 70%;
+}
+
+.sidebar-header-action {
+    display: block;
+    width: 30%;
+}
+
+.sidebar-header-action button {
+    height: 30px;
+    position: relative;
+    float: right;
+    background-color: #3e2d66;
+    color: #d3d6e9;
+    padding: 0px 10px;
+    width: 60px;
+    border-radius: 4px;
+    border: 1px solid #d3d6e9;
+    transition: all 300ms;
+}
+
+.sidebar-header-action button:hover {
+    background-color: #d3d6e9;
+    font-weight: bold;
+    color: black;
+}
+
+.sidebar-header-action button:active {
+    background-color: #130041;
+    color: #d3d6e9;
+}
+
+.sidebar-header span {
+    text-transform: uppercase;
+    font-size: 1.5em;
+    letter-spacing: 3px;
+    font-weight: bold;
+    color: #d3d6e9;
+}
+
+.sidebar-content {
+    overflow-y: auto;
+    height: calc(100vh - 64px);
+}
+
+#scanners-list li {
+    padding-left: 15px;
+    background-color: #130041;
+    border: 1px solid black;
+    border-radius: 1px;
+}
+
+li button {
+    width: 100%;
+    text-align: left;
+    color: #d3d6e9;
+    background-color: #4f3a80;
+    transition: all 150ms;
+    border: none;
+    padding: 7px 7px;
+}
+
+li button:hover {
+    background-color: #130041;
+}
+
+li button:active {
+    background-color: #130041;
+    color: white;
+}
+
+li .scanner-name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+li .scanner-host {
+    font-style: italic;
+}
+
+li .scanner-status {
+    margin-top: 5px;
+    font-size: 1.1em;
+}
+
+.content {
+    position: relative;
+    width: 75%;
+    float: right;
+    height: 100vh;
 }

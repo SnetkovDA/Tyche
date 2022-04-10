@@ -6,7 +6,7 @@ using Tyche.Shared.Models;
 namespace Tyche.Manager.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     public class FileController : Controller
     {
         readonly IFileRepository _fileRepository;
@@ -17,14 +17,14 @@ namespace Tyche.Manager.Controllers
         }
 
         [HttpGet]
-        [Route("Ids/{id}")]
+        [Route("All/{id}")]
         public IActionResult GetFileIdsForScanner([FromRoute] string id)
         {
             return new JsonResult(_fileRepository.GetAllFoundFilesIdsForScanner(id));
         }
 
         [HttpGet]
-        [Route("Get/{id}")]
+        [Route("{id}")]
         public IActionResult GetFileById([FromRoute] string id)
         {
             return new JsonResult(_fileRepository.GetFoundFile(id));
@@ -61,7 +61,7 @@ namespace Tyche.Manager.Controllers
         }
 
         [HttpDelete]
-        [Route("Delete/{id}")]
+        [Route("{id}")]
         public IActionResult DeleteFile([FromRoute] string id)
         {
             _fileRepository.DeleteFoundFile(id);
